@@ -3,13 +3,20 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
+let clearFormBtn;
+
+const handleClearForm = () => {
+  noteTitle.value = '';
+  noteText.value = '';
+};
 
 if (window.location.pathname === '/notes') {
-  noteTitle = document.querySelector('.note-title');
-  noteText = document.querySelector('.note-textarea');
-  saveNoteBtn = document.querySelector('.save-note');
-  newNoteBtn = document.querySelector('.new-note');
-  noteList = document.querySelectorAll('.list-container .list-group');
+  saveNoteBtn = document.querySelector('.save-note-btn');
+  newNoteBtn = document.querySelector('#new-note');
+  clearFormBtn = document.querySelector('#clear-form');
+  saveNoteBtn.addEventListener('click', handleNoteSave);
+  newNoteBtn.addEventListener('click', handleNewNoteView);
+  clearFormBtn.addEventListener('click', handleClearForm);
 }
 
 // Show an element
@@ -80,6 +87,9 @@ const handleNoteSave = () => {
     .then((notes) => {
       updateNoteList(notes);
       renderActiveNote();
+      hide(saveNoteBtn);
+      hide(clearFormBtn);
+      show(newNoteBtn);
     });
 };
 
@@ -132,12 +142,18 @@ const handleNoteView = (e) => {
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
   renderActiveNote();
+  hide(newNoteBtn);
+  show(saveNoteBtn);
+  show(clearFormBtn);
 };
 
-// Sets the activeNote to and empty object and allows the user to enter a new note
-const handleNewNoteView = (e) => {
+// Sets the activeNote to an empty object and allows the user to enter a new note
+const handleNewNoteView = () => {
   activeNote = {};
   renderActiveNote();
+  show(saveNoteBtn);
+  show(clearFormBtn);
+  hide(newNoteBtn);
 };
 
 const handleRenderSaveBtn = () => {
@@ -209,6 +225,7 @@ if (window.location.pathname === '/notes') {
   newNoteBtn.addEventListener('click', handleNewNoteView);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
   noteText.addEventListener('keyup', handleRenderSaveBtn);
+  clearFormBtn.addEventListener('click', handleClearForm);
 }
 
 getAndRenderNotes();
