@@ -5,15 +5,11 @@ body {
   padding: 0;
 }
 
-.save-note {
+/* .save-note, .new-note, .clear-btn {
   display: none;
-}
+} */
 
-.col-8 {
-  padding-top: 1000px;
-}
-
-.icons i {
+.icons {
   margin-left: 15px;
   margin-right: 15px;
   font-size: 1.5rem;
@@ -26,14 +22,12 @@ body {
   width: 100%;
   outline: none;
   border: none;
-  border-top: 15px;
 }
 
 .note-textarea {
   resize: none;
   height: calc(100% - 63px);
- 
-  border-top: 15px;
+  padding-top: 15px;
 }
 
 .note-title {
